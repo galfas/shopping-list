@@ -1,0 +1,145 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+  }
+}
+
+plugins {
+  id 'eclipse'
+  id 'java'
+  id 'maven'
+  id 'jacoco'
+  id 'idea'
+  id 'com.gorylenko.gradle-git-properties' version '1.4.17'
+  id 'org.springframework.boot' version '1.5.3.RELEASE'
+  id 'net.researchgate.release' version '2.5.0'
+}
+
+project.ext {
+  flapdoodleVersion = '2.0.0'
+}
+
+jar {
+  baseName = 'shopping-list-service'
+  version = '0.0.1'
+}
+
+repositories {
+  mavenCentral()
+}
+
+idea {
+  project {
+    jdkName = sourceCompatibility
+    languageLevel = sourceCompatibility
+  }
+  module {
+    testSourceDirs += [file('itest'), file('e2etest')]
+  }
+}
+
+sourceSets {
+  integrationTest {
+    java {
+      compileClasspath += main.output + test.output
+      runtimeClasspath += main.output + test.output
+      srcDir file('src/integration-test/java')
+    }
+    resources.srcDir file('src/integration-test/resources')
+  }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+  compile 'log4j:log4j:1.2.17'
+  compile("org.springframework.boot:spring-boot-devtools")
+  compile("org.springframework.boot:spring-boot-starter-web")
+
+  compile group: 'com.google.guava', name: 'guava', version: '22.0'
+
+  //data repository mongo
+  compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+
+  //commons
+  compile("org.apache.commons:commons-io:1.3.2")
+
+  compile group: 'joda-time', name: 'joda-time', version: '2.9.9'
+
+  //test dependencies
+  testCompile("info.cukes:cucumber-java8:1.2.5")
+  testCompile("info.cukes:cucumber-java:1.2.5")
+  testCompile("info.cukes:cucumber-junit:1.2.5")
+  testCompile('com.jayway.restassured:rest-assured:2.9.0')
+  testCompile("de.flapdoodle.embed:de.flapdoodle.embed.mongo:$flapdoodleVersion")
+  testCompile("junit:junit:4.12")
+  testCompile("org.springframework.boot:spring-boot-starter-test:1.4.0.RELEASE")
+}
+
+test {
+  jacoco {
+    destinationFile = file("$buildDir/jacoco/unit-tests.exec")
+  }
+  finalizedBy 'jacocoUnitTestReport'
+}
+
+task jacocoUnitTestReport(type: JacocoReport) {
+  executionData fileTree("${buildDir}/jacoco").include('unit-tests.exec')
+  sourceSets sourceSets.main
+
+  reports {
+    html.destination "${buildDir}/reports/jacoco/unit-tests/html"
+  }
+}
+
+sourceSets {
+  itest {
+    compileClasspath += sourceSets.main.compileClasspath
+    compileClasspath += sourceSets.test.runtimeClasspath
+  }
+  e2etest {
+    compileClasspath += sourceSets.main.compileClasspath
+    compileClasspath += sourceSets.test.runtimeClasspath
+  }
+}
+
+task integrationTest(type: Test) {
+  description = 'Runs integraion tests'
+  testClassesDir = sourceSets.itest.output.classesDir
+  classpath += sourceSets.itest.runtimeClasspath
+
+  jacoco {
+    destinationFile = file("$buildDir/jacoco/integration.exec")
+  }
+}
+
+task testAcceptanceLocal(type: Test) {
+  description = 'Runs End to End Tests'
+  testClassesDir = sourceSets.e2etest.output.classesDir
+  classpath += sourceSets.e2etest.runtimeClasspath
+
+  jacoco {
+    destinationFile = file("$buildDir/jacoco/acceptance-local.exec")
+  }
+
+  finalizedBy 'jacocoItestTestReport'
+}
+
+task jacocoItestTestReport(type: JacocoReport) {
+  description = 'Aggregated itest and accpetance tests coverage report'
+  executionData fileTree("${buildDir}/jacoco").include('integration.exec').include('acceptance-local.exec')
+  sourceSets sourceSets.main
+
+  reports {
+    html.destination "${buildDir}/reports/jacoco/all-integration/html"
+  }
+}
+
+task mergeAccAndItestCoverage(type: JacocoMerge) {
+  executionData integrationTest, testAcceptanceLocal
+  destinationFile = file("$buildDir/jacoco/all-integration.exec")
+}
