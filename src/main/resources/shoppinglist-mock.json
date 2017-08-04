@@ -1,7 +1,7 @@
 {
   "owner": "1234",
   "users": ["1111", "2222"],
-  "itemList": [{
+  "listItemList": [{
     "item": {
       "name": "name",
       "description": "description1"

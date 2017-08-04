@@ -12,5 +12,6 @@ RUN ./gradlew build
 # local application port
 EXPOSE 8080:8080
 
+RUN ./gradlew run
 # execute it
-CMD ["java", "-jar", "build/libs/statistic-service-0.0.1.jar"]
+CMD ["java", "-jar", "build/libs/shopping-list-service-0.0.1.jar"]

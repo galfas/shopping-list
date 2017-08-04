@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mjs.shopping.service.server.business.impl.ShoppingListBoImpl;
 import com.mjs.shopping.service.server.conf.ServerConfiguration;
-import com.mjs.shopping.service.server.dao.ShoppingListRepository;
+import com.mjs.shopping.service.server.dao.impl.ShoppingListRepositoryMongo;
 import com.mjs.shopping.service.server.model.Item;
 import com.mjs.shopping.service.server.model.ListItem;
 import com.mjs.shopping.service.server.model.ShoppingList;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class ShoppingListBoImplTest {
 
   @Mock
-  private ShoppingListRepository shoppingListRepository;
+  private ShoppingListRepositoryMongo shoppingListRepository;
 
   @Mock
   private ServerConfiguration serverConfiguration;
@@ -37,7 +37,7 @@ public class ShoppingListBoImplTest {
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
     shoppingListBo.create(expectedShoppingList);
-    verify(shoppingListRepository, times(1)).insert(expectedShoppingList);
+    verify(shoppingListRepository, times(1)).save(expectedShoppingList);
   }
 
   @Test(expected = Exception.class)
@@ -54,13 +54,13 @@ public class ShoppingListBoImplTest {
     String listId = "1";
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
-    when(shoppingListRepository.fetch(listId)).thenReturn(expectedShoppingList);
+    when(shoppingListRepository.findOne(listId)).thenReturn(expectedShoppingList);
 
     ShoppingList receivedShoppingList = shoppingListBo.fetchShoppingListBy(listId);
 
     assertNotNull(receivedShoppingList);
     assertEquals(expectedShoppingList, receivedShoppingList);
-    verify(shoppingListRepository, times(1)).fetch(listId);
+    verify(shoppingListRepository, times(1)).findOne(listId);
   }
 
   @Test(expected = Exception.class)
@@ -68,7 +68,7 @@ public class ShoppingListBoImplTest {
     String listId = "1";
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
-    doThrow(new Exception()).when(shoppingListRepository).fetch(listId);
+    doThrow(new Exception()).when(shoppingListRepository).findOne(listId);
 
     shoppingListBo.fetchShoppingListBy(listId);
   }

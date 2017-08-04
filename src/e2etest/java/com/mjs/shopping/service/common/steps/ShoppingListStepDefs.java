@@ -33,8 +33,8 @@ public class ShoppingListStepDefs {
   }
 
   @And("^the list has \"([^\"]*)\" \"([^\"]*)\" and check status is \"([^\"]*)\"$")
-  public void the_list_has(String itemName, int quantity, boolean isChecked) {
-    Item item = new Item(itemName, String.format("description for s%", itemName));
+  public void the_list_has(int quantity, String itemName, boolean isChecked) {
+    Item item = new Item(itemName, String.format("description for %s", itemName));
 
     ListItem listItem = new ListItem(item, quantity, INITIAL_VERSION, isChecked);
     shoppingList.addListItem(listItem);

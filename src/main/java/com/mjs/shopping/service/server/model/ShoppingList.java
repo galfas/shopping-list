@@ -1,5 +1,6 @@
 package com.mjs.shopping.service.server.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,11 +19,14 @@ public class ShoppingList {
 
 
   public ShoppingList() {
+    this.listItemList = new ArrayList<>();
+    this.users = new ArrayList<>();
   }
 
   public ShoppingList(String owner, List<ListItem> listItemList) {
     this.owner = owner;
     this.listItemList = listItemList;
+    this.users = new ArrayList<>();
   }
 
   public String getId() {

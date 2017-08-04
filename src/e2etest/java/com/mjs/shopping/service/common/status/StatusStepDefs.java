@@ -19,8 +19,9 @@ public class StatusStepDefs {
   }
 
   @And("^app is health$")
-  public void app_body_status_is() {
+  public void app_is_health() {
     String body = responseOptions.body().print();
+
     assertThat("ok", equalTo(body));
   }
 }
