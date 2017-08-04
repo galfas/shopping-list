@@ -1,4 +1,4 @@
-Feature: statistics retrieval
+Feature: shopping list
 
   Background:
     Given app has started

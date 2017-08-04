@@ -48,7 +48,7 @@ public class ShoppingListController extends BaseController {
   @ResponseStatus(HttpStatus.OK)
   @RequestMapping(path = "/list/{listId}", method = RequestMethod.PUT)
   public ShoppingList update(@PathVariable String listId,
-                             @RequestBody ShoppingList wishList) {
+                             @RequestBody ShoppingList shoppingList) {
 
     throw new NotImplementedException();
   }

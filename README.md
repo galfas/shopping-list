@@ -1,7 +1,10 @@
 # This project is a shopping list service, 
  
 ### Tecnology
-This project is built in java 8 with spring boot, gradle and use mongodb as data repository and Redis as distributed lock.
+This project is built in java 8 with spring boot; 
+- Mongodb as data repository and 
+- Redis as distributed lock.
+- RabbitMQ as message broker
 
 The project comes ready with an instance of Gradle wrapper. 
 
@@ -26,10 +29,12 @@ To run the tests for the project execute the following command from the project'
 
 ### Docker 
  It is possible to launch the application as a container, in this case you need to have docker installed in your server,
-  and then you just need to execute the next commands in the project's root:
+  and then you just need to execute the next command in the project's root:
   
- 1. docker build -t statistics:0.0.1 .
- 2. docker run -p 8080:8080 statistics:0.0.1
+```
+docker-compose up.
+```
+ 
 
 ### Terminal 
 This is a Spring Boot application, so it is packed as a jar. 
@@ -39,9 +44,8 @@ java -jar <pathToJar>.jar
 
 ```
 - after run the command "./gradlew build", you can find the jar on "/build/libs/statistc-service-0.0.1.jar" from the project's root
-###IDE
-Run the main class(Application.java) from any IDE.
 
+You need to set environment variables for the mongo host (SHOPPINGLIST_MONGO_1_PORT_27017_TCP_ADDR) and port (MONGO_PORT_27017_TCP_PORT).
 
 ## Used design Patterns: ##
 1. Builder
@@ -51,3 +55,18 @@ Run the main class(Application.java) from any IDE.
 ## Next steps:
 1. Insert documentation for the API e.g. swagger.
 2. Improve the docker image.
+3. Create the new endpoints
+
+## Diagram
+
+### Solution design
+
+![Alt text](diagram/solution.png?raw=true "Sequence diagram - list access")
+
+### Sequence diagrams
+
+![Alt text](diagram/list-acess.png?raw=true "Sequence diagram - list access")
+
+![Alt text](diagram/update-acess.png?raw=true "Sequence diagram - list access")
+
+![Alt text](diagram/share-acess.png?raw=true "Sequence diagram - list access")

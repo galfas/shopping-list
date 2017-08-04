@@ -25,7 +25,7 @@ public class ShoppingListBoImpl implements ShoppingListBo {
   }
 
   @Override
-  public ShoppingList create(ShoppingList wishList) {
-    return shoppingListRepository.save(wishList);
+  public ShoppingList create(ShoppingList shoppingList) {
+    return shoppingListRepository.save(shoppingList);
   }
 }

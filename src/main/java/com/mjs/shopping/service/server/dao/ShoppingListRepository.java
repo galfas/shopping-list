@@ -6,15 +6,15 @@ import com.mjs.shopping.service.server.model.ShoppingList;
 public interface ShoppingListRepository {
 
   /**
-   * Method reposible to insert a wishlist into our repository.
-   * @param wishList
+   * Method reposible to insert a shoppingList into our repository.
+   * @param shoppingList
    */
-  void insert(ShoppingList wishList);
+  void insert(ShoppingList shoppingList);
 
   /**
-   * Method responsible to fetch a wishlist by its id.
-   * @param wishlistId
+   * Method responsible to fetch a shoppingLis by its id.
+   * @param shoppingListId
    * @return list of Transaction that has a timestap bigger than its parameter.
    */
-  ShoppingList fetch(String wishlistId);
+  ShoppingList fetch(String shoppingListId);
 }
