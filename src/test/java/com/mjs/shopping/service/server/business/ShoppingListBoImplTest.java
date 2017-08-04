@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mjs.shopping.service.server.business.impl.ShoppingListBoImpl;
-import com.mjs.shopping.service.server.conf.ServerConfiguration;
+import com.mjs.shopping.service.server.dao.impl.ShoppingListRepositoryImpl;
 import com.mjs.shopping.service.server.dao.impl.ShoppingListRepositoryImplMongo;
 import com.mjs.shopping.service.server.model.ShoppingList;
 
@@ -23,10 +23,8 @@ import static org.mockito.Mockito.when;
 public class ShoppingListBoImplTest {
 
   @Mock
-  private ShoppingListRepositoryImplMongo shoppingListRepository;
+  private ShoppingListRepositoryImpl shoppingListRepositoryImpl;
 
-  @Mock
-  private ServerConfiguration serverConfiguration;
 
   @InjectMocks
   ShoppingListBo shoppingListBo = new ShoppingListBoImpl();
@@ -36,14 +34,14 @@ public class ShoppingListBoImplTest {
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
     shoppingListBo.create(expectedShoppingList);
-    verify(shoppingListRepository, times(1)).save(expectedShoppingList);
+    verify(shoppingListRepositoryImpl, times(1)).insert(expectedShoppingList);
   }
 
   @Test(expected = Exception.class)
   public void shouldPassExceptionFromRepositoryWhileCreateList() {
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
-    doThrow(new Exception()).when(shoppingListRepository).insert(expectedShoppingList);
+    doThrow(new Exception()).when(shoppingListRepositoryImpl).insert(expectedShoppingList);
 
     shoppingListBo.create(expectedShoppingList);
   }
@@ -53,13 +51,13 @@ public class ShoppingListBoImplTest {
     String listId = "1";
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
-    when(shoppingListRepository.findOne(listId)).thenReturn(expectedShoppingList);
+    when(shoppingListRepositoryImpl.fetch(listId)).thenReturn(expectedShoppingList);
 
     ShoppingList receivedShoppingList = shoppingListBo.fetchShoppingListBy(listId);
 
     assertNotNull(receivedShoppingList);
     assertEquals(expectedShoppingList, receivedShoppingList);
-    verify(shoppingListRepository, times(1)).findOne(listId);
+    verify(shoppingListRepositoryImpl, times(1)).fetch(listId);
   }
 
   @Test(expected = Exception.class)
@@ -67,7 +65,7 @@ public class ShoppingListBoImplTest {
     String listId = "1";
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
-    doThrow(new Exception()).when(shoppingListRepository).findOne(listId);
+    doThrow(new Exception()).when(shoppingListRepositoryImpl).fetch(listId);
 
     shoppingListBo.fetchShoppingListBy(listId);
   }

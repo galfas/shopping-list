@@ -31,20 +31,20 @@ public class ShoppingListRepositoryImplTest {
     String listId = "1";
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
-    when(shoppingListRepositoryImplMongo.save(expectedShoppingList)).thenReturn(expectedShoppingList);
+    when(shoppingListRepositoryImplMongo.insert(expectedShoppingList)).thenReturn(expectedShoppingList);
 
     ShoppingList receivedShoppingList = shoppingListRepository.insert(expectedShoppingList);
 
     assertNotNull(receivedShoppingList);
     assertEquals(expectedShoppingList, receivedShoppingList);
-    verify(shoppingListRepositoryImplMongo, times(1)).findOne(listId);
+    verify(shoppingListRepositoryImplMongo, times(1)).insert(expectedShoppingList);
   }
 
   @Test(expected = Exception.class)
   public void shouldRepassExceptionReceivedFromRepositoryMongoWhenCreateList() {
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
-    when(shoppingListRepositoryImplMongo.save(expectedShoppingList)).thenThrow(Exception.class);
+    when(shoppingListRepositoryImplMongo.insert(expectedShoppingList)).thenThrow(Exception.class);
 
     shoppingListRepository.insert(expectedShoppingList);
   }

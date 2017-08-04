@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mjs.shopping.service.server.business.ShoppingListBo;
-import com.mjs.shopping.service.server.conf.ServerConfiguration;
 import com.mjs.shopping.service.server.dao.ShoppingListRepository;
 import com.mjs.shopping.service.server.model.ShoppingList;
 
@@ -13,9 +12,6 @@ public class ShoppingListBoImpl implements ShoppingListBo {
 
   @Autowired
   private ShoppingListRepository shoppingListRepository;
-
-  @Autowired
-  private ServerConfiguration serverConfiguration;
 
 
   @Override
