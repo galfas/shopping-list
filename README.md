@@ -121,4 +121,4 @@ the given operation.
 ![Share list](diagram/share-list.png?raw=true "Sequence diagram - share list")
 
 
-There are more Sequence diagrams missing, I started for the ones that I believe help me to explains some of my design decisions.
+There are more Sequence diagrams missing, I started for the ones that I believe help me to explain some of my design decisions.
