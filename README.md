@@ -61,12 +61,12 @@ You need to set environment variables for the mongo host (SHOPPINGLIST_MONGO_1_P
 
 ### Solution design
 
-![Alt text](diagram/solution.png?raw=true "Sequence diagram - list access")
+![Solution](diagram/solution.png?raw=true "Solution design")
 
 ### Sequence diagrams
 
-![Alt text](diagram/list-acess.png?raw=true "Sequence diagram - list access")
+![Retrieve list](diagram/retrieve-list.png?raw=true "Sequence diagram - retrieve list")
 
-![Alt text](diagram/update-acess.png?raw=true "Sequence diagram - list access")
+![Update list](diagram/update-list.png?raw=true "Sequence diagram - update list")
 
-![Alt text](diagram/share-acess.png?raw=true "Sequence diagram - list access")
+![Share list](diagram/share-list.png?raw=true "Sequence diagram - share list")
