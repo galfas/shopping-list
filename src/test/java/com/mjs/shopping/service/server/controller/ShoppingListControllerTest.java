@@ -9,12 +9,12 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mjs.shopping.service.server.business.ShoppingListBo;
-import com.mjs.shopping.service.server.model.Item;
-import com.mjs.shopping.service.server.model.ListItem;
 import com.mjs.shopping.service.server.model.ShoppingList;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import static com.mjs.shopping.service.server.TestUtils.ShoppingListUtils.buildEmptyItemList;
+import static com.mjs.shopping.service.server.TestUtils.ShoppingListUtils.buildEmptyShoppingList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.doThrow;
@@ -96,15 +96,5 @@ public class ShoppingListControllerTest {
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
     shoppingListController.deleteList(givenListId);
-  }
-
-  private static ShoppingList buildEmptyShoppingList() {
-    return new ShoppingList();
-  }
-
-  private static ListItem buildEmptyItemList() {
-    Item item = new Item("name", "description");
-
-    return new ListItem(item, 1, 1, true);
   }
 }

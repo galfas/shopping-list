@@ -86,17 +86,11 @@ To Create a new Shopping list
   ```
     
 ##TODO
-- Insert the auth mechanism, Insert a new annotation in the Services that should be accessible only for authenticated users.
-This will basically read the auth token from header and valid in the auth api. It can make sure the user is logged in an have the authorization for
-the given operation.
-
 - It need to use mongo to keep the version of the document, in order to make sure I have the right version before update I will use the document version in mongo.
 
 - The strategy to handle concurrency will be at start an optimistic lock, I picked redis at first but I want to test it direct in Mongo,
  I believe I can have the same result using only Mongo. So I want to investigate it before.
  
-- Create an abstraction between Mongo and the business layer.
-
 - Create a health for the external dependencies (mongo, auth system, Rabbit and Redis)
 
 - Externalize application configuration with environment variable i.e. port and application context  

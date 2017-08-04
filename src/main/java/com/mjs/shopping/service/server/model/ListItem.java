@@ -4,7 +4,6 @@ package com.mjs.shopping.service.server.model;
 public class ListItem {
   private Item item;
   private int quantity;
-  private int version;
   private boolean isChecked;
 
 
@@ -14,7 +13,6 @@ public class ListItem {
   public ListItem(Item item, int quantity, int version, boolean isChecked) {
     this.item = item;
     this.quantity = quantity;
-    this.version = version;
     this.isChecked = isChecked;
   }
 
@@ -33,14 +31,6 @@ public class ListItem {
 
   public void setQuantity(int quantity) {
     this.quantity = quantity;
-  }
-
-  public int getVersion() {
-    return version;
-  }
-
-  public void setVersion(int version) {
-    this.version = version;
   }
 
   public boolean getIsChecked() {

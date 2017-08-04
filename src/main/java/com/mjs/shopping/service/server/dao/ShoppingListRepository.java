@@ -2,17 +2,16 @@ package com.mjs.shopping.service.server.dao;
 
 import com.mjs.shopping.service.server.model.ShoppingList;
 
-
 public interface ShoppingListRepository {
 
   /**
-   * Method reposible to insert a shoppingList into our repository.
+   * Method responsible to insert a shoppingList into our repository.
    * @param shoppingList
    */
-  void insert(ShoppingList shoppingList);
+  ShoppingList insert(ShoppingList shoppingList);
 
   /**
-   * Method responsible to fetch a shoppingLis by its id.
+   * Method responsible to fetch a shoppingList by its id.
    * @param shoppingListId
    * @return list of Transaction that has a timestap bigger than its parameter.
    */

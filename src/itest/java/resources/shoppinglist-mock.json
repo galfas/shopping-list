@@ -1,13 +1,13 @@
 {
   "owner": "1234",
+  "version": 1,
   "users": ["1111", "2222"],
-  "itemList": [{
+  "listItemList": [{
     "item": {
       "name": "name",
       "description": "description1"
     },
     "quantity": 10,
-    "version": 1,
     "isChecked": "false"
   },
     {
@@ -16,7 +16,6 @@
         "description": "description2"
       },
       "quantity": 20,
-      "version": 1,
       "isChecked": "true"
     }
   ]

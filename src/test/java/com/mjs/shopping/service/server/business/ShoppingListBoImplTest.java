@@ -8,11 +8,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mjs.shopping.service.server.business.impl.ShoppingListBoImpl;
 import com.mjs.shopping.service.server.conf.ServerConfiguration;
-import com.mjs.shopping.service.server.dao.impl.ShoppingListRepositoryMongo;
-import com.mjs.shopping.service.server.model.Item;
-import com.mjs.shopping.service.server.model.ListItem;
+import com.mjs.shopping.service.server.dao.impl.ShoppingListRepositoryImplMongo;
 import com.mjs.shopping.service.server.model.ShoppingList;
 
+import static com.mjs.shopping.service.server.TestUtils.ShoppingListUtils.buildEmptyShoppingList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.doThrow;
@@ -24,7 +23,7 @@ import static org.mockito.Mockito.when;
 public class ShoppingListBoImplTest {
 
   @Mock
-  private ShoppingListRepositoryMongo shoppingListRepository;
+  private ShoppingListRepositoryImplMongo shoppingListRepository;
 
   @Mock
   private ServerConfiguration serverConfiguration;
@@ -71,15 +70,5 @@ public class ShoppingListBoImplTest {
     doThrow(new Exception()).when(shoppingListRepository).findOne(listId);
 
     shoppingListBo.fetchShoppingListBy(listId);
-  }
-
-
-  private static ShoppingList buildEmptyShoppingList() {
-    return new ShoppingList();
-  }
-
-  private static ListItem buildEmptyItemList() {
-    Item item = new Item("name", "description");
-    return new ListItem(item, 1, 1, true);
   }
 }

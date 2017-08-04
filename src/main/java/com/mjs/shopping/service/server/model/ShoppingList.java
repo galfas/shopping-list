@@ -5,14 +5,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@Document(collection = "shoppinglist")
 public class ShoppingList {
   @Id
   @JsonProperty
   private String id;
 
+  private Long version;
   private String owner;
   private List<String> users;
   private List<ListItem> listItemList;
@@ -35,6 +38,14 @@ public class ShoppingList {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public Long getVersion() {
+    return version;
+  }
+
+  public void setVersion(Long version) {
+    this.version = version;
   }
 
   public String getOwner() {
