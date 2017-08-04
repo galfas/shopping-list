@@ -119,3 +119,6 @@ the given operation.
 ![Update list](diagram/update-list.png?raw=true "Sequence diagram - update list")
 
 ![Share list](diagram/share-list.png?raw=true "Sequence diagram - share list")
+
+
+There are more Sequence diagrams missing, I started for the ones that I believe help me to explains some of my design decisions.
