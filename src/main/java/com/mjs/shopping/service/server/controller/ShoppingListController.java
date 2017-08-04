@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mjs.shopping.service.server.business.ShoppingListBo;
 import com.mjs.shopping.service.server.model.ListItem;
 import com.mjs.shopping.service.server.model.ShoppingList;
+import com.mjs.shopping.service.server.security.annotation.AuthenticationRequired;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -23,6 +24,7 @@ public class ShoppingListController extends BaseController {
 
 
   @ResponseStatus(HttpStatus.OK)
+  @AuthenticationRequired(scope = "list.get")
   @RequestMapping(path = "/list/{listId}")
   public ShoppingList fetchList(@PathVariable String listId) {
 
@@ -30,6 +32,7 @@ public class ShoppingListController extends BaseController {
   }
 
   @ResponseStatus(HttpStatus.CREATED)
+  @AuthenticationRequired(scope = "list.create")
   @RequestMapping(path = "/list", method = RequestMethod.POST)
   public ShoppingList create(@RequestBody ShoppingList shoppingList) {
 
@@ -37,6 +40,7 @@ public class ShoppingListController extends BaseController {
   }
 
   @ResponseStatus(HttpStatus.OK)
+  @AuthenticationRequired(scope = "list.update")
   @RequestMapping(path = "/list/{listId}/product/version/{version}", method = RequestMethod.PATCH)
   public ShoppingList updateProduct(@PathVariable String listId,
                                     @PathVariable Integer version,
@@ -46,6 +50,7 @@ public class ShoppingListController extends BaseController {
   }
 
   @ResponseStatus(HttpStatus.OK)
+  @AuthenticationRequired(scope = "list.update")
   @RequestMapping(path = "/list/{listId}", method = RequestMethod.PUT)
   public ShoppingList update(@PathVariable String listId,
                              @RequestBody ShoppingList shoppingList) {
@@ -54,6 +59,7 @@ public class ShoppingListController extends BaseController {
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
+  @AuthenticationRequired(scope = "list.delete")
   @RequestMapping(path = "/list/{id}", method = RequestMethod.DELETE)
   public void deleteList(@PathVariable String id) {
 

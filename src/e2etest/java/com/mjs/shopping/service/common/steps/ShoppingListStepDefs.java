@@ -21,6 +21,7 @@ import static org.junit.Assert.assertThat;
 
 public class ShoppingListStepDefs {
 
+  static final String AUTHORIZATION_HEADER = "Authorization";
   Response response;
   ShoppingList shoppingList;
 
@@ -40,21 +41,37 @@ public class ShoppingListStepDefs {
     shoppingList.addListItem(listItem);
   }
 
-  @When("^I request the list creation")
-  public void i_request_the_list_creation() {
+  @When("^I request the list creation after be authenticated")
+  public void i_request_the_list_creation_after_be_authenticated() {
+    response = null;
+    response = givenApiClient()
+      .body(shoppingList)
+      .header(AUTHORIZATION_HEADER, "Bearer appAuth")
+      .post("/list");
+  }
+
+  @When("^I request the list creation without be authenticated")
+  public void i_request_the_list_creation_without_be_authenticated() {
     response = null;
     response = givenApiClient()
       .body(shoppingList)
       .post("/list");
-
-    assertThat(response.statusCode(), equalTo(201));
   }
+
 
   @Then("^I should receive a valid list with an id$")
   public void i_should_receive_a_valid_list_with_an_id() {
+    assertThat(response.statusCode(), equalTo(201));
+
     Map listAsMap = response.body().as(Map.class);
     Assert.assertTrue(listAsMap.get("id").toString().length() >0);
     Assert.assertEquals(shoppingList.getOwner(), listAsMap.get("owner"));
     shoppingList = null;
+  }
+
+  @Then("^The list creation should not be allowed$")
+  public void the_list_creation_should_not_be_allowed() {
+    assertThat(response.statusCode(), equalTo(401));
+    response = null;
   }
 }

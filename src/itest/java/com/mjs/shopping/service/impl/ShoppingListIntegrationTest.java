@@ -1,6 +1,5 @@
 package com.mjs.shopping.service.impl;
 
-
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Map;
@@ -12,6 +11,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.mjs.shopping.service.AbstractIntegrationTest;
 
+import static com.mjs.shopping.service.util.IntegrationTestUtils.validAppUserHeaders;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,6 +25,7 @@ public class ShoppingListIntegrationTest extends AbstractIntegrationTest {
     MvcResult mvcResultCreate = mockMvc.perform(post(
       "/list")
       .content(jsonAsStr)
+      .headers(validAppUserHeaders())
       .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isCreated()).andReturn();
 
@@ -33,7 +34,6 @@ public class ShoppingListIntegrationTest extends AbstractIntegrationTest {
     Assert.assertEquals("1234", listCreatedAsMap.get("owner"));
   }
 
-
   @Test
   public void shouldRetrieveListJustCreated() throws Exception {
     String jsonAsStr = new String(Files.readAllBytes(getFile("shoppinglist-mock.json").toPath()));
@@ -41,6 +41,7 @@ public class ShoppingListIntegrationTest extends AbstractIntegrationTest {
     MvcResult mvcResultCreate = mockMvc.perform(post(
       "/list")
       .content(jsonAsStr)
+      .headers(validAppUserHeaders())
       .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isCreated()).andReturn();
 
@@ -48,6 +49,7 @@ public class ShoppingListIntegrationTest extends AbstractIntegrationTest {
     String currentId = listCreatedAsMap.get("id").toString();
 
     MvcResult mvcResult = mockMvc.perform(get(String.format("/list/%s", currentId))
+      .headers(validAppUserHeaders())
       .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isOk()).andReturn();
 
