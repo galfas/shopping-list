@@ -107,10 +107,11 @@ the given operation.
 
 ### Solution design
 
-![Solution](diagram/solution.png?raw=true "Solution design")
+![Solution](diagram/design.png?raw=true "Solution design")
 
 
 ***I inserted Redis as a cache in the design, but I would test the application's performance before make optimizations.***
+ 
 ### Sequence diagrams
 
 ![Retrieve list](diagram/retrieve-list.png?raw=true "Sequence diagram - retrieve list")
