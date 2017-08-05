@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.mjs.shopping.service.server.security.annotation.AuthenticationRequired;
@@ -51,11 +52,16 @@ public class IdentityAuthTokenValidationInterceptor extends HandlerInterceptorAd
     return false;
   }
 
+  @Override
+  public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    AuthorizationContextHolder.clearContext();
+  }
+
   private void attemptToAuthenticateUser(HttpServletRequest request, AuthenticationRequired authenticationRequiredAnnotation) {
     String token = getAuthorizationToken(request);
     String scope = getScopeFromAnnotation(authenticationRequiredAnnotation);
 
-    this.identityAuthClient.authorizeToken(token, scope);
+    AuthorizationContextHolder.setUserUuid(this.identityAuthClient.fetchAuthorizedUser(token, scope));
   }
 
   protected AuthenticationRequired getAnnotationFromHandlerMethod(HandlerMethod handlerMethod) {

@@ -71,8 +71,9 @@ public class ShoppingListController extends BaseController {
 
 
   private void validateNewShoppingList(ShoppingList shoppingList) {
-    if(shoppingList.getId() != null ||
-      shoppingList.getVersion() != null){
+    if (shoppingList.getId() != null ||
+      shoppingList.getVersion() != null ||
+      shoppingList.getOwner() != null) {
 
       throw new InvalidParameterException();
     }

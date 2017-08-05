@@ -11,6 +11,6 @@ public interface IdentityAuthClient {
    * @param scope authorization scope to be validated
    * @throws IdentityClientException if authorization fails, IdentityClientException will be thrown
    */
-  void authorizeToken(String token, String scope) throws IdentityClientException;
+  String fetchAuthorizedUser(String token, String scope) throws IdentityClientException;
 
 }

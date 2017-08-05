@@ -1,5 +1,8 @@
 package com.mjs.shopping.service.server.security.provider.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -10,19 +13,30 @@ import com.mjs.shopping.service.server.security.provider.IdentityAuthClient;
 @Component
 public class MockIdentityAuthClient implements IdentityAuthClient {
 
-  public static final String INVALID_AUTHENTICATION_TOKEN = "1234";
-  public static final String INVALID_AUTHORIZATION_TOKEN = "5678";
+  Map<String, String> tokenByUserUuid = new HashMap<>();
 
-  public void authorizeToken(String token, String scope) {
+  public MockIdentityAuthClient() {
+
+    tokenByUserUuid.put("token1", "useruuid1");
+    tokenByUserUuid.put("token2", "useruuid2");
+    tokenByUserUuid.put("token3", "useruuid3");
+    tokenByUserUuid.put("token4", "useruuid4");
+    tokenByUserUuid.put("token5", "useruuid5");
+  }
+
+
+  @Override
+  public String fetchAuthorizedUser(String token, String scope) {
 
     //Test Error in the authentication
-    if (token.equals(INVALID_AUTHENTICATION_TOKEN)) {
+    if (!tokenByUserUuid.containsKey(token)) {
       throw new IdentityAuthenticationException("User not authenticated properly");
     }
 
     //Test Error in the authorization
-    if (token.equals(INVALID_AUTHORIZATION_TOKEN)) {
+    if (tokenByUserUuid.get(token) == "useruuid4" || tokenByUserUuid.get(token) == "useruuid5") {
       throw new IdentityAuthorizationException("User Doesn't have the right access", HttpStatus.FORBIDDEN.value());
     }
+    return tokenByUserUuid.get(token);
   }
 }
