@@ -31,7 +31,7 @@ public class ShoppingListIntegrationTest extends AbstractIntegrationTest {
 
     Map listCreatedAsMap = mapper.readValue(mvcResultCreate.getResponse().getContentAsByteArray(), Map.class);
     Assert.assertTrue(listCreatedAsMap.get("id").toString().length() > 0);
-    Assert.assertEquals("1234", listCreatedAsMap.get("owner"));
+    Assert.assertNotNull(listCreatedAsMap.get("owner"));
   }
 
   @Test
@@ -56,7 +56,7 @@ public class ShoppingListIntegrationTest extends AbstractIntegrationTest {
 
     Map retriedListAsMap = mapper.readValue(mvcResult.getResponse().getContentAsByteArray(), Map.class);
     Assert.assertEquals(currentId, retriedListAsMap.get("id"));
-    Assert.assertEquals("1234", retriedListAsMap.get("owner"));
+    Assert.assertNotNull(listCreatedAsMap.get("owner"));
   }
 
   private File getFile(String fileName) {

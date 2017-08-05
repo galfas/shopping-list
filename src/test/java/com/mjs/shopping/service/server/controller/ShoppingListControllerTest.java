@@ -59,7 +59,8 @@ public class ShoppingListControllerTest {
   public void shouldCreateANewShoppingList() throws IOException {
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
-    shoppingListController.create(expectedShoppingList);
+    ShoppingList receivedShoppingList = shoppingListController.create(expectedShoppingList);
+
     verify(shoppingListBo, times(1)).create(expectedShoppingList);
   }
 
@@ -75,6 +76,14 @@ public class ShoppingListControllerTest {
   public void shouldNotCreateANewShoppingListWithVersionAlreadyPopulate() throws IOException {
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
     expectedShoppingList.setVersion(2L);
+
+    shoppingListController.create(expectedShoppingList);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void shouldNotCreateANewShoppingListWithOwnerAlreadyPopulate() throws IOException {
+    ShoppingList expectedShoppingList = buildEmptyShoppingList();
+    expectedShoppingList.setOwner("owner");
 
     shoppingListController.create(expectedShoppingList);
   }

@@ -1,5 +1,8 @@
 package com.mjs.shopping.service.server.business;
 
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -8,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mjs.shopping.service.server.business.impl.ShoppingListBoImpl;
 import com.mjs.shopping.service.server.dao.impl.ShoppingListRepositoryImpl;
-import com.mjs.shopping.service.server.dao.impl.ShoppingListRepositoryImplMongo;
+import com.mjs.shopping.service.server.interceptor.AuthorizationContextHolder;
 import com.mjs.shopping.service.server.model.ShoppingList;
 
 import static com.mjs.shopping.service.server.TestUtils.ShoppingListUtils.buildEmptyShoppingList;
@@ -29,12 +32,24 @@ public class ShoppingListBoImplTest {
   @InjectMocks
   ShoppingListBo shoppingListBo = new ShoppingListBoImpl();
 
+  @Before
+  public void setup() {
+    AuthorizationContextHolder.setUserUuid("user1");
+  }
+
+  @After
+  public void after() {
+    AuthorizationContextHolder.clearContext();
+  }
+
   @Test
   public void shouldInsertShoppingListIntoRepository() {
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
 
     shoppingListBo.create(expectedShoppingList);
     verify(shoppingListRepositoryImpl, times(1)).insert(expectedShoppingList);
+
+    Assert.assertEquals(expectedShoppingList.getOwner(), "user1");
   }
 
   @Test(expected = Exception.class)

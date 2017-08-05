@@ -9,7 +9,7 @@ public class IntegrationTestUtils {
 
   public static HttpHeaders validAppUserHeaders() {
     HttpHeaders headers = new HttpHeaders();
-    headers.add(AUTHORIZATION_HEADER, "Bearer appToken");
+    headers.add(AUTHORIZATION_HEADER, "Bearer token1");
 
     return headers;
   }

@@ -26,8 +26,7 @@ public class ShoppingList {
     this.users = new ArrayList<>();
   }
 
-  public ShoppingList(String owner, List<ListItem> listItemList) {
-    this.owner = owner;
+  public ShoppingList(List<ListItem> listItemList) {
     this.listItemList = listItemList;
     this.users = new ArrayList<>();
   }

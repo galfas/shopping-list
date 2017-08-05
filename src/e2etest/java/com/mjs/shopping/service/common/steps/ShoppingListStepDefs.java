@@ -30,7 +30,7 @@ public class ShoppingListStepDefs {
 
   @Given("^I have an empty list$")
   public void i_have_an_empty_list() {
-    shoppingList = new ShoppingList(DEFAULT_USER, new ArrayList<ListItem>());
+    shoppingList = new ShoppingList(new ArrayList<ListItem>());
   }
 
   @And("^the list has \"([^\"]*)\" \"([^\"]*)\" and check status is \"([^\"]*)\"$")
@@ -51,7 +51,7 @@ public class ShoppingListStepDefs {
     response = null;
     response = givenApiClient()
       .body(shoppingList)
-      .header(AUTHORIZATION_HEADER, "Bearer appAuth")
+      .header(AUTHORIZATION_HEADER, "Bearer token1")
       .post("/list");
   }
 
@@ -70,7 +70,7 @@ public class ShoppingListStepDefs {
 
     Map listAsMap = response.body().as(Map.class);
     Assert.assertTrue(listAsMap.get("id").toString().length() >0);
-    Assert.assertEquals(shoppingList.getOwner(), listAsMap.get("owner"));
+    Assert.assertNotNull(listAsMap.get("owner"));
     shoppingList = null;
   }
 
