@@ -1,6 +1,7 @@
 package com.mjs.shopping.service.server.controller;
 
 import java.security.InvalidParameterException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,14 @@ public class ShoppingListController extends BaseController {
   public ShoppingList fetchList(@PathVariable String listId) {
 
     return shoppingListBo.fetchShoppingListBy(listId);
+  }
+
+  @ResponseStatus(HttpStatus.OK)
+  @AuthenticationRequired(scope = "list.get")
+  @RequestMapping(path = "/list/")
+  public List<ShoppingList> fetchAllListByUser() {
+
+    throw new NotImplementedException();
   }
 
   @ResponseStatus(HttpStatus.CREATED)

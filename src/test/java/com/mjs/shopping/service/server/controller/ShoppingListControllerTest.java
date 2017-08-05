@@ -106,6 +106,12 @@ public class ShoppingListControllerTest {
   }
 
   @Test(expected = NotImplementedException.class)
+  public void shouldReceiveNotImplementForFectAllMethod() throws IOException {
+
+    shoppingListController.fetchAllListByUser();
+  }
+
+  @Test(expected = NotImplementedException.class)
   public void shouldReceiveNotImplementForUpdateProductMethod() throws IOException {
     String givenListId = "1";
     Integer version = 1;
