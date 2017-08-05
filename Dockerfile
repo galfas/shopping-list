@@ -11,6 +11,7 @@ RUN ./gradlew build
 
 # local application port
 EXPOSE 8080:8080
+EXPOSE 8081:8081
 
 RUN ./gradlew run
 # execute it

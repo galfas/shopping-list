@@ -114,6 +114,8 @@ To Create a new Shopping list
 - The strategy to handle concurrency will be at start an optimistic lock, I picked redis at first but I want to test it direct in Mongo,
  I believe I can have the same result using only Mongo. So I want to investigate it before.
 
+- Improve logging in the application
+
 - Externalize application configuration with environment variable i.e. port and application context  
 
 - Insert a live documentation i.e. Swagger
