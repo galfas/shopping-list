@@ -46,10 +46,30 @@ java -jar <pathToJar>.jar
 
 You need to set environment variables for the mongo host (SHOPPINGLIST_MONGO_1_PORT_27017_TCP_ADDR) and port (MONGO_PORT_27017_TCP_PORT).
 
-###IDE
+### IDE
 Run the main class(Application.java) from any IDE.
 
 Don't forget to run with dev profile if you want to use a local mongo or set the environment variables described in the previous step
+
+### Health check and system information
+
+In order to monitor the application and make sure it is working or at least what is not working, I created endpoints the
+following endpoints:
+
+***{applicationPort}/status***
+    It answer ok in case the application is running.
+    
+***{managementPort}/health***
+    It describe the system dependencies and its status, so far we are monitoring the following items:
+    - Mongo
+    - Disk space
+    
+***{managementPort}/info***
+    It shows the version of the code that is running.
+    
+***{managementPort}/health***
+ We also can find more information about the application on: 
+    
 
 ### Trying the API
 
@@ -84,7 +104,7 @@ To Create a new Shopping list
     	}
     ```
     
-  It will return an ID, this I id should be use to retrieve the list
+  It will return an ID, this id should be use to retrieve the list
   
   ```
   localhost:8080/shopping/list/{listId}
@@ -93,8 +113,6 @@ To Create a new Shopping list
 ##TODO
 - The strategy to handle concurrency will be at start an optimistic lock, I picked redis at first but I want to test it direct in Mongo,
  I believe I can have the same result using only Mongo. So I want to investigate it before.
- 
-- Create a health for the external dependencies (mongo, auth system, Rabbit and Redis)
 
 - Externalize application configuration with environment variable i.e. port and application context  
 
