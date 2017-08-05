@@ -49,14 +49,14 @@ You need to set environment variables for the mongo host (SHOPPINGLIST_MONGO_1_P
 ### IDE
 Run the main class(Application.java) from any IDE.
 
-Don't forget to run with dev profile if you want to use a local mongo or set the environment variables described in the previous step
+Don't forget to run with local profile if you want to use a local mongo or run without profile but make sure to set the environment variables described in the previous step
 
 ### Health check and system information
 
 In order to monitor the application and make sure it is working or at least what is not working, I created endpoints the
 following endpoints:
 
-***{applicationPort}/status***
+***{applicationContext}/{applicationPort}/status***
     It answer ok in case the application is running.
     
 ***{managementPort}/health***
