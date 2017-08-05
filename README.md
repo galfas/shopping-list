@@ -111,6 +111,10 @@ To Create a new Shopping list
   ```
     
 ##TODO
+- The authentication and authorization system should return the username and I will use this value to insert the owner 
+in the shopping list, by doing so I am sure the user can only create his/her owns lists. When user shares a list I will expect to receive the username of the invited user
+ at first I thought about use the userId but I believe it will be very insecure, unless this system offers me a external user id.
+
 - The strategy to handle concurrency will be at start an optimistic lock, I picked redis at first but I want to test it direct in Mongo,
  I believe I can have the same result using only Mongo. So I want to investigate it before.
 
