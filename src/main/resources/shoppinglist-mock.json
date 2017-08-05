@@ -1,6 +1,5 @@
 {
   "owner": "1234",
-  "version": 1,
   "users": ["1111", "2222"],
   "listItemList": [{
     "item": {

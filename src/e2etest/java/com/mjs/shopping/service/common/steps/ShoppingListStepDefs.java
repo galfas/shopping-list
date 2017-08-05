@@ -41,8 +41,13 @@ public class ShoppingListStepDefs {
     shoppingList.addListItem(listItem);
   }
 
-  @When("^I request the list creation after be authenticated")
-  public void i_request_the_list_creation_after_be_authenticated() {
+  @And("^I add version number into my shopping list$")
+  public void i_add_a_version_number_into_my_shopping_list() {
+    shoppingList.setVersion(1L);
+  }
+
+  @When("^I request the list creation$")
+  public void i_request_the_list_creation() {
     response = null;
     response = givenApiClient()
       .body(shoppingList)
@@ -50,7 +55,7 @@ public class ShoppingListStepDefs {
       .post("/list");
   }
 
-  @When("^I request the list creation without be authenticated")
+  @When("^I request the list creation without be authenticated$")
   public void i_request_the_list_creation_without_be_authenticated() {
     response = null;
     response = givenApiClient()
@@ -74,4 +79,11 @@ public class ShoppingListStepDefs {
     assertThat(response.statusCode(), equalTo(401));
     response = null;
   }
+
+  @Then("^I should receive a bad request error$")
+  public void i_should_receive_a_bad_request_error() {
+    assertThat(response.statusCode(), equalTo(400));
+    response = null;
+  }
+
 }

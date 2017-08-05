@@ -9,7 +9,7 @@ public class BaseController {
 
   @ExceptionHandler({IllegalArgumentException.class})
   public ResponseEntity<Object> handleIlegalArgumentException() {
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler({RuntimeException.class})
