@@ -1,5 +1,7 @@
 package com.mjs.shopping.service.server.controller;
 
+import java.security.InvalidParameterException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +37,7 @@ public class ShoppingListController extends BaseController {
   @AuthenticationRequired(scope = "list.create")
   @RequestMapping(path = "/list", method = RequestMethod.POST)
   public ShoppingList create(@RequestBody ShoppingList shoppingList) {
+    validateNewShoppingList(shoppingList);
 
     return shoppingListBo.create(shoppingList);
   }
@@ -65,4 +68,14 @@ public class ShoppingListController extends BaseController {
 
     throw new NotImplementedException();
   }
+
+
+  private void validateNewShoppingList(ShoppingList shoppingList) {
+    if(shoppingList.getId() != null ||
+      shoppingList.getVersion() != null){
+
+      throw new InvalidParameterException();
+    }
+  }
+
 }

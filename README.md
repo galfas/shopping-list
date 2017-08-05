@@ -86,8 +86,6 @@ To Create a new Shopping list
   ```
     
 ##TODO
-- It need to use mongo to keep the version of the document, in order to make sure I have the right version before update I will use the document version in mongo.
-
 - The strategy to handle concurrency will be at start an optimistic lock, I picked redis at first but I want to test it direct in Mongo,
  I believe I can have the same result using only Mongo. So I want to investigate it before.
  

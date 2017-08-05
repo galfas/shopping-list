@@ -63,6 +63,22 @@ public class ShoppingListControllerTest {
     verify(shoppingListBo, times(1)).create(expectedShoppingList);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void shouldNotCreateANewShoppingListWithIdAlreadyPopulate() throws IOException {
+    ShoppingList expectedShoppingList = buildEmptyShoppingList();
+    expectedShoppingList.setId("id");
+
+    shoppingListController.create(expectedShoppingList);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void shouldNotCreateANewShoppingListWithVersionAlreadyPopulate() throws IOException {
+    ShoppingList expectedShoppingList = buildEmptyShoppingList();
+    expectedShoppingList.setVersion(2L);
+
+    shoppingListController.create(expectedShoppingList);
+  }
+
   @Test(expected = Exception.class)
   public void shouldPassExceptionFromBusinnesWhenCreateANewShoppingList() throws IOException {
     ShoppingList expectedShoppingList = buildEmptyShoppingList();
